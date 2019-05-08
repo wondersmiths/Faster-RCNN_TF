@@ -16,6 +16,7 @@ DEV=$1
 DEV_ID=$2
 NET=$3
 DATASET=$4
+MODEL_FILE=$5
 
 array=( $@ )
 len=${#array[@]}
@@ -49,7 +50,7 @@ exec &> >(tee -a "$LOG")
 echo Logging output to "$LOG"
 
 time python ./tools/train_net.py --device ${DEV} --device_id ${DEV_ID} \
-  --weights data/pretrain_model/VGG_imagenet.npy \
+  --weights ${MODEL_FILE} \
   --imdb ${TRAIN_IMDB} \
   --iters ${ITERS} \
   --cfg experiments/cfgs/faster_rcnn_end2end.yml \
